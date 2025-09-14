@@ -1,7 +1,5 @@
-// ShadowX - JavaScript Interactions et Animations
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Navigation Mobile
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     
@@ -9,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
         
-        // Animation du hamburger
         const spans = hamburger.querySelectorAll('span');
         if (hamburger.classList.contains('active')) {
             spans[0].style.transform = 'rotate(-45deg) translate(-5px, 6px)';
@@ -22,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Fermer le menu mobile lors du clic sur un lien
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -36,13 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Smooth Scrolling pour les liens de navigation
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                const offsetTop = target.offsetTop - 80; // Compensation pour la navbar fixe
+                const offsetTop = target.offsetTop - 80;
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -51,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
     let lastScrollY = window.scrollY;
     
@@ -66,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.style.backdropFilter = 'blur(20px)';
         }
         
-        // Auto-hide navbar on scroll down, show on scroll up
         if (currentScrollY > lastScrollY && currentScrollY > 200) {
             navbar.style.transform = 'translateY(-100%)';
         } else {
@@ -76,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScrollY = currentScrollY;
     });
     
-    // Particles Animation dans le Hero
     function createParticle() {
         const particle = document.createElement('div');
         particle.className = 'particle';
@@ -91,13 +83,11 @@ document.addEventListener('DOMContentLoaded', function() {
             box-shadow: 0 0 6px #8B5CF6;
         `;
         
-        // Position aléatoire
         particle.style.left = Math.random() * 100 + '%';
         particle.style.top = Math.random() * 100 + '%';
         
         document.querySelector('.particles').appendChild(particle);
         
-        // Animation
         const duration = Math.random() * 3000 + 2000;
         const distance = Math.random() * 100 + 50;
         
@@ -123,14 +113,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Créer des particules périodiquement
     setInterval(createParticle, 300);
     
-    // Code Editor Typing Animation
     const codeLines = [
         '-- Xeno Premium Script',
         'local player = game.Players.LocalPlayer',
-        'loadstring(game:HttpGet("https://xeno.dev/api"))()',
+        'loadstring(game:HttpGet("https://xeno.online/api"))()',
         '-- Bypass Byfron Active ✓',
         'print("Xeno Loaded Successfully!")'
     ];
@@ -145,7 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentLine < codeLines.length) {
             const line = codeLines[currentLine];
             if (currentChar < line.length) {
-                // Simulation du typing
                 currentChar++;
                 setTimeout(typeCode, typingSpeed);
             } else {
@@ -154,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(typeCode, lineDelay);
             }
         } else {
-            // Restart animation
             setTimeout(() => {
                 currentLine = 0;
                 currentChar = 0;
@@ -163,10 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Start typing animation after page load
     setTimeout(typeCode, 2000);
     
-    // Intersection Observer pour les animations au scroll
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -177,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate-in');
                 
-                // Animation spéciale pour les stats
                 if (entry.target.classList.contains('stat-number')) {
                     animateCounter(entry.target);
                 }
@@ -185,13 +168,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
     
-    // Observer les éléments à animer
     const animatedElements = document.querySelectorAll('.feature-card, .script-card, .stat-card');
     animatedElements.forEach(el => {
         observer.observe(el);
     });
     
-    // Animation des compteurs dans les stats
     function animateCounter(element) {
         const target = element.textContent;
         const numericValue = parseInt(target.replace(/\D/g, ''));
@@ -220,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, stepTime);
     }
     
-    // Effet de glow sur les boutons au survol
     const glowButtons = document.querySelectorAll('.btn-primary, .btn-download');
     glowButtons.forEach(button => {
         button.addEventListener('mouseenter', function() {
@@ -232,7 +212,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Script Cards Hover Effects
     const scriptCards = document.querySelectorAll('.script-card');
     scriptCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
@@ -246,7 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Feature Cards Animation
     const featureCards = document.querySelectorAll('.feature-card');
     featureCards.forEach((card, index) => {
         card.style.animationDelay = `${index * 0.1}s`;
@@ -260,75 +238,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Matrix Rain Effect (optionnel, pour l'ambiance hacker)
-    function createMatrixRain() {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.05;
-        `;
-        document.body.appendChild(canvas);
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-        const charArray = chars.split('');
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-        
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#8B5CF6';
-            ctx.font = fontSize + 'px monospace';
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = charArray[Math.floor(Math.random() * charArray.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-        
-        setInterval(draw, 35);
-        
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-    }
-    
-    // Activer l'effet Matrix (décommentez si souhaité)
-    // createMatrixRain();
-    
-    // Keyboard Shortcuts
     document.addEventListener('keydown', function(e) {
-        // Ctrl + D pour télécharger
         if (e.ctrlKey && e.key === 'd') {
             e.preventDefault();
             document.querySelector('.btn-download').click();
         }
         
-        // Escape pour fermer le menu mobile
         if (e.key === 'Escape' && navMenu.classList.contains('active')) {
             hamburger.click();
         }
     });
     
-    // Easter Egg - Konami Code
     let konamiCode = [];
     const konamiSequence = [
         'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
@@ -343,13 +263,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-            // Easter egg activé
             document.body.style.filter = 'hue-rotate(180deg)';
             setTimeout(() => {
                 document.body.style.filter = 'none';
             }, 3000);
             
-            // Message secret
             const message = document.createElement('div');
             message.innerHTML = '🎉 Konami Code Activated! Welcome to Xeno, Elite Hacker! 🎉';
             message.style.cssText = `
@@ -379,7 +297,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Console Welcome Message
     console.log(`
     ██╗  ██╗███████╗███╗   ██╗ ██████╗ 
     ╚██╗██╔╝██╔════╝████╗  ██║██╔═══██╗
@@ -395,7 +312,6 @@ document.addEventListener('DOMContentLoaded', function() {
     Looking for something? Try the Konami Code... 👀
     `);
     
-    // Performance Monitoring
     if ('performance' in window) {
         window.addEventListener('load', () => {
             const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
@@ -404,7 +320,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Utility Functions
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
@@ -436,7 +351,6 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Export functions for potential external use
 window.Xeno = {
     showNotification,
     version: '1.2.65',
